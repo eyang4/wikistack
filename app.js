@@ -19,10 +19,17 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', (req, res, next) => {
-  res.send(layout(''));
+  res.redirect('/wiki');
 });
 
 app.use('/wiki', wikiRouter);
+
+app.use('/:name', (req, res, next) => {
+  const name = req.param.name;
+  if (name !== 'wiki') {
+    res.redirect('/wiki');
+  }
+});
 
 const port = 3000;
 
