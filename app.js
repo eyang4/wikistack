@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const views = require('./views/index');
 const layout = require('./views/layout');
 const { db, Page, User } = require('./models');
+const wikiRouter = require('./routes/wiki');
+const userRouter = require('./routes/user');
 
 db.authenticate().then(() => {
   console.log('connected to the database');
@@ -19,6 +21,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/', (req, res, next) => {
   res.send(layout(''));
 });
+
+app.use('/wiki', wikiRouter);
 
 const port = 3000;
 
